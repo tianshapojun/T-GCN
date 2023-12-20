@@ -13,6 +13,7 @@ import utils.logging
 DATA_PATHS = {
     "shenzhen": {"feat": "data/sz_speed.csv", "adj": "data/sz_adj.csv"},
     "losloop": {"feat": "data/los_speed.csv", "adj": "data/los_adj.csv"},
+    "customized":{"feat": "data/Macro_Data/samples_modified.npy", "adj": "data/Macro_Data/dis_mat_mod.dat"}
 }
 
 
@@ -68,7 +69,7 @@ if __name__ == "__main__":
     parser = pl.Trainer.add_argparse_args(parser)
 
     parser.add_argument(
-        "--data", type=str, help="The name of the dataset", choices=("shenzhen", "losloop"), default="losloop"
+        "--data", type=str, help="The name of the dataset", choices=("shenzhen", "losloop","customized"), default="customized"
     )
     parser.add_argument(
         "--model_name",
