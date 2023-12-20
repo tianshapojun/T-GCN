@@ -15,8 +15,10 @@ def get_adjacency_matrix_new(B,dis):
     for i in range(A.shape[0]):
         A[i,i] = 0
         for j in range(i+1,A.shape[1]):
-            if A[i,j] < dis:
-                A[i,j] = 1
+            try:
+                A[i,j] = 1/B[i,j]
+            except:
+                A[i,j] = 0
             A[j,i] = A[i,j]
     return A
 
