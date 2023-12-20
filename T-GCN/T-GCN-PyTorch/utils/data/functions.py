@@ -4,14 +4,27 @@ import torch
 
 
 def load_features(feat_path, dtype=np.float32):
-    feat_df = pd.read_csv(feat_path)
-    feat = np.array(feat_df, dtype=dtype)
+    #feat_df = pd.read_csv(feat_path)
+    #feat = np.array(feat_df, dtype=dtype)
+    data = np.load(feat_path)[:,:,0]
+    feat = np.array(data, dtype=dtype)
     return feat
 
+def get_adjacency_matrix_new(B,dis):
+    A = np.array((B.shape[0],B.shape[1]))
+    for i in range(A.shape[0]):
+        A[i,i] = 0
+        for j in range(i+1,A.shape[1]):
+            if A[i,j] < dis:
+                A[i,j] = 1
+            A[j,i] = A[i,j]
+    return A
 
 def load_adjacency_matrix(adj_path, dtype=np.float32):
-    adj_df = pd.read_csv(adj_path, header=None)
-    adj = np.array(adj_df, dtype=dtype)
+    #adj_df = pd.read_csv(adj_path, header=None)
+    #adj = np.array(adj_df, dtype=dtype)
+    adj = np.load(adj_path,allow_pickle=True)
+    adj = np.array(get_adjacency_matrix_new(adj, dis = 5), dtype=dtype)
     return adj
 
 
