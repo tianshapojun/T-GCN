@@ -13,7 +13,7 @@ import utils.logging
 DATA_PATHS = {
     "shenzhen": {"feat": "data/sz_speed.csv", "adj": "data/sz_adj.csv"},
     "losloop": {"feat": "data/los_speed.csv", "adj": "data/los_adj.csv"},
-    "customized":{"feat": "data/Macro_Data/samples_modified.npy", "adj": "data/Macro_Data/dis_mat_mod.dat"}
+    "customized":{"feat": "data/Macro/samples_modified.npy", "adj": "data/Macro/dis_mat_mod.dat"}
 }
 
 
@@ -52,7 +52,7 @@ def main_supervised(args):
     model = get_model(args, dm)
     task = get_task(args, model, dm)
     callbacks = get_callbacks(args)
-    trainer = pl.Trainer.from_argparse_args(args, callbacks=callbacks)
+    trainer = pl.Trainer.from_argparse_args(args)#, callbacks=callbacks)
     trainer.fit(task, dm)
     results = trainer.validate(datamodule=dm)
     return results
